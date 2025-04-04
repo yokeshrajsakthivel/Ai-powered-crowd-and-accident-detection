@@ -3,6 +3,9 @@ import torch
 import numpy as np
 from ultralytics import YOLO
 from collections import deque
+import pygame
+import threading
+import time
 
 # ✅ Load YOLO Model
 yolo_model = YOLO("yolov8n.pt")
@@ -13,8 +16,24 @@ movement_history = deque(maxlen=10)
 speed_threshold = 15
 movement_variance_threshold = 50
 
+# ✅ Sound Alert Setup
+pygame.mixer.init()
+alert_sound = pygame.mixer.Sound("alert.wav")
+alert_cooldown = 5  # seconds between alerts
+last_alert_time = 0
+
+def play_alert_sound():
+    """Plays the alert sound for 5 seconds in a separate thread."""
+    def _play():
+        alert_sound.play()
+        time.sleep(5)
+        alert_sound.stop()
+
+    threading.Thread(target=_play, daemon=True).start()
+
 def process_crowd_feed(detect=True):  # ✅ Add a parameter to control AI detection
     """Processes video feed for crowd detection & anomaly behavior detection."""
+    global last_alert_time
     cap = cv2.VideoCapture(0)  
 
     while cap.isOpened():
@@ -71,10 +90,15 @@ def process_crowd_feed(detect=True):  # ✅ Add a parameter to control AI detect
                         cv2.putText(frame, "MOVEMENT ANOMALY DETECTED!", (20, 70),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 165, 255), 2)
 
-            # ✅ If any anomaly is detected, show alert
+            # ✅ If any anomaly is detected, show alert and play sound
             if anomaly_detected:
                 cv2.putText(frame, "ALERT: UNUSUAL BEHAVIOR DETECTED!", (20, 90),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+
+                current_time = time.time()
+                if current_time - last_alert_time > alert_cooldown:
+                    last_alert_time = current_time
+                    play_alert_sound()
 
             # ✅ Display People Count
             cv2.putText(frame, f"People Count: {count}", (20, 30), 
