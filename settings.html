@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="top-navbar">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+        <h2 class="heading">AI Detection - Settings</h2>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('incident_log') }}">Incident Log</a></li>
+                    <li><a href="{{ url_for('detections') }}">Detections</a></li>
+                    <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1>Settings</h1>
+            </header>
+
+            <!-- Settings Section -->
+            <section class="settings-container">
+                <div class="settings-card">
+                    <h2>General Settings</h2>
+                    <div class="setting-option">
+                        <label for="darkModeToggle">Dark Mode</label>
+                        <input type="checkbox" id="darkModeToggle">
+                    </div>
+                    <div class="setting-option">
+                        <label for="autoUpdate">Auto Update</label>
+                        <input type="checkbox" id="autoUpdate">
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h2>Security Settings</h2>
+                    <div class="setting-option">
+                        <label for="twoFactorAuth">Two-Factor Authentication</label>
+                        <input type="checkbox" id="twoFactorAuth">
+                    </div>
+                    <div class="setting-option">
+                        <label for="dataEncryption">Data Encryption</label>
+                        <input type="checkbox" id="dataEncryption">
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h2>Notification Settings</h2>
+                    <div class="setting-option">
+                        <label for="emailAlerts">Email Alerts</label>
+                        <input type="checkbox" id="emailAlerts">
+                    </div>
+                    <div class="setting-option">
+                        <label for="pushNotifications">Push Notifications</label>
+                        <input type="checkbox" id="pushNotifications">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

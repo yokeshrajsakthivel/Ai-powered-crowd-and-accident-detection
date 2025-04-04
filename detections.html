@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detections</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="top-navbar">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+        <h2 class="heading">AI Detection</h2>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('incident_log') }}">Incident Log</a></li>
+                    <li><a href="{{ url_for('detections') }}">Detections</a></li>
+                    <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1>AI Detection Feeds</h1>
+            </header>
+
+            <!-- Video Feeds (AI Processed Feeds) -->
+            <section class="video-container">
+                <div class="video-stream">
+                    <h3>Live Crowd Detection</h3>
+                    <img id="liveFeed1" src="{{ url_for('crowd_feed', detect='true') }}" alt="Live Crowd Detection">
+                </div>
+                <div class="video-stream">
+                    <h3>Live Traffic Detection</h3>
+                    <img id="liveFeed2" src="{{ url_for('traffic_feed', detect='true') }}" alt="Live Traffic Feed">
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

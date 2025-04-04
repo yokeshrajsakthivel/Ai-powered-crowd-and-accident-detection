@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Log</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="top-navbar">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+        <h2 class="heading">AI Detection - Incident Log</h2>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('incident_log') }}" class="active">Incident Log</a></li>
+                    <li><a href="{{ url_for('detections') }}">Detections</a></li>
+                    <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1>Incident Log</h1>
+            </header>
+
+            <section class="log-container">
+                <div class="table-responsive">
+                    <table class="incident-table">
+                        <thead>
+                            <tr>
+                                <th>Incident Date</th>
+                                <th>Incident Time</th>
+                                <th>Incident Type</th>
+                                <th>Incident Video</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>April 02, 2025</td>
+                                <td>14:35</td>
+                                <td>Violence Detected</td>
+                                <td>
+                                    <video controls>
+                                        <source src="{{ url_for('static', filename='videos/incident1.mp4') }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>April 02, 2025</td>
+                                <td>15:10</td>
+                                <td>Accident Detected</td>
+                                <td>
+                                    <video controls>
+                                        <source src="{{ url_for('static', filename='videos/incident2.mp4') }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
